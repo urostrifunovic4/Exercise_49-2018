@@ -59,5 +59,21 @@ namespace Exercise_49_2018
                     exerciseResult1.StudentIndex + " " + exerciseResult1.Point);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection konekcija = new SqlConnection())
+            {
+                konekcija.ConnectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FacultyDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                konekcija.Open();
+
+                string q = String.Format("INSERT into ExerciseResults values('{0}','{1}','{2}')",
+                 txtName.Text, txtIndex.Text, Convert.ToInt32(txtPoint.Text));
+
+                SqlCommand komanda = new SqlCommand(q, konekcija);
+                komanda.ExecuteNonQuery();
+
+            }
+        }
     }
 }
